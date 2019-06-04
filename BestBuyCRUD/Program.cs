@@ -8,6 +8,15 @@ namespace BestBuyCRUD
     {
         static void Main(string[] args)
         {
+            string jsonData = File.ReadAllText("AppSetting.Debug.json");
+
+            string connString = JObject.Parse(jsonData)["ConnectionStrings"]["DefaultConnection"].ToString();
+
+             EmployeesRepo er = new EmployeesRepo(connString);
+              //  SalesRepo sr = new SalesRepo(connect);
+
+
+
             /*
              * Intructions:
              * 1. Start by creating a json file to store your connection string, and making sure it is hidden by git.

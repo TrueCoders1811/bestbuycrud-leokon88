@@ -6,7 +6,7 @@ namespace BestBuyCRUD
 {
     class Sales
     {
-        public int SalesId { get; set; }
+        public int SalesId { get; set; } // property
         public int ProductId { get; set; }
         public int Quality { get; set; }
         public int Price{ get; set; }
