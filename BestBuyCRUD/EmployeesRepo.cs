@@ -64,6 +64,7 @@ namespace BestBuyCRUD
                 cmd.Parameters.AddWithValue("Last", createEmployees.LastName);
                 cmd.Parameters.AddWithValue("Email", createEmployees.EmailAddress);
                 cmd.Parameters.AddWithValue("Number", createEmployees.PhoneNumber);
+                cmd.Parameters.AddWithValue("BDay", createEmployees.DateOfBirth);
 
                 cmd.ExecuteNonQuery();
             }
@@ -77,9 +78,36 @@ namespace BestBuyCRUD
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "UPDATE employees SET EmployeeId =@ID, FirstName=@First, LastName=@Last"
+                    + "MiddleInitial=@Middle, EmailAddress=@Email, PhoneNumber=@Number,Title=@title,DateOfBirth=@Bday";
 
+                cmd.Parameters.AddWithValue("ID", updateEmployees.EmployeeId);
+                cmd.Parameters.AddWithValue("First", updateEmployees.FirstName);
+                cmd.Parameters.AddWithValue("Middle", updateEmployees.MiddleInitial);
+                cmd.Parameters.AddWithValue("Email", updateEmployees.EmailAddress);
+                cmd.Parameters.AddWithValue("Phone", updateEmployees.DateOfBirth);
+                cmd.Parameters.AddWithValue("Bday", updateEmployees.DateOfBirth);
+
+                cmd.ExecuteNonQuery();
             }
         }
 
+
+        public void DeleteEmployees (Employees employeesToDelete)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+
+            connect.Open();
+            MySqlCommand cmd = connect.CreateCommand();
+            cmd.CommandText = "DELECT FROM employees  ??";
+            cmd.Parameters.AddWithValue("ID", employeesToDelete.EmployeeId);
+            cmd.Parameters.AddWithValue("First",employeesToDelete.FirstName);
+            cmd.Parameters.AddWithValue("Middle", employeesToDelete.MiddleInitial);
+            cmd.Parameters.AddWithValue("Email", employeesToDelete.EmailAddress);
+            cmd.Parameters.AddWithValue("Phone", employeesToDelete.DateOfBirth);
+            cmd.Parameters.AddWithValue("Bday", employeesToDelete.DateOfBirth);
+
+            cmd.ExecuteNonQuery();
+        }
     }
 }
