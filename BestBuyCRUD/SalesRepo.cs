@@ -64,7 +64,7 @@ namespace BestBuyCRUD
             }
         }
 
-        public void UpdateSales(Sales salesToUpate)
+        public void UpdateSales(Sales salesToUpdate)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
 
@@ -75,7 +75,7 @@ namespace BestBuyCRUD
 
                 cmd.CommandText = "Update Sales SET SalesId =@SID, ProductId =@PID, Quantity=@Q"
                     + "Price=@price, Date=@date, EmployeeID=@EID";
-                cmd.Parameters.AddWithValue("SID", salesToUpate.SalesId);
+                cmd.Parameters.AddWithValue("SID", salesToUpdate.SalesId);
                 cmd.Parameters.AddWithValue("PID", salesToUpdate.ProductId);
                 cmd.Parameters.AddWithValue("Q", salesToUpdate.Quantity);
                 cmd.Parameters.AddWithValue("Price", salesToUpdate.Price);
