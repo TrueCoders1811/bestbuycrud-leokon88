@@ -70,5 +70,16 @@ namespace BestBuyCRUD
         }
 
 
+        public void UpdateEmployees(Employees updateEmployees)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+            using (connect)
+            {
+                connect.Open();
+                MySqlCommand cmd = connect.CreateCommand();
+
+            }
+        }
+
     }
 }
