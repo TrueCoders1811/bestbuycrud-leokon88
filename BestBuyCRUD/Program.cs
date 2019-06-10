@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 
 namespace BestBuyCRUD
 {
@@ -15,29 +16,32 @@ namespace BestBuyCRUD
              EmployeesRepo er = new EmployeesRepo(connString);
              SalesRepo sr = new SalesRepo(connString);
 
-            Employees employee1 = new Employees() // constructor created to create a new employee
-                 {
-                     EmployeeId = 34030,
-                     FirstName = "Ed",
-                     MiddleInitial = "L",
-                     LastName = "Jones",
-                     EmailAddress = "EJones11@gmail.com",
-                     PhoneNumber = "223-421-9903",
-                     Title = "GeekSquad",
-                     DateOfBirth = new DateTime(1988,01,11,00,03,20)
-                 };
+            Employees employee1 = new Employees("Eva", "L", "Jones", "EJones11@gmail.com", "223-421-9903", "GeekSquad", new DateTime(1988, 01, 11, 00, 03, 20));// constructor created to create a new employee
+            er.CreateEmployees(employee1);
 
-            Sales sale1 = new Sales() // constructor created to create a new employee
-            {
-                SalesId =5338,
-                ProductId =538,
-                Quantity =2,
-                Price = 54.99M,
-                Date =new DateTime(2019,04,31,15,07,30),
-                EmployeeId= 34030,
-            };
+           List <Employees> employees= er.GetEmployees();
+
+           foreach(Employees emp in employees)
+           {
+               Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
+                   +$"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}"); 
+           }
+            Console.Read();
 
 
+        
+
+
+            /* Sales sale1 = new Sales() // constructor created to create a new employee
+              {
+                 // SalesId =5338,
+                  ProductId =538,
+                  Quantity =2,
+                  Price = 54.99M,
+                  Date =new DateTime(2019,04,31,15,07,30),
+                  EmployeeId= 34031,
+              };*/
+            //  er.UpdateEmployees("Emily" , "S", "Johnson");
 
             /*
              * Intructions:

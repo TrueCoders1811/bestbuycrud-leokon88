@@ -24,7 +24,7 @@ namespace BestBuyCRUD
 
                 MySqlCommand cmd = connect.CreateCommand();
                 cmd.CommandText = "Select EmployeeId AS ID, FirstName AS First, MiddleInitial AS Middle, LastName AS Last," +
-                    "EmailAddress AS Email, PhoneNumber As Number, Title, DateOfBirth AS Bday";
+                    "EmailAddress AS Email, PhoneNumber As Number, Title, DateOfBirth AS Bday FROM Employees";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -55,14 +55,15 @@ namespace BestBuyCRUD
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "INSERT INTO employees (EmployeeId,FirstName, MiddleInitial," +
-                    "LastName, EmailAddress, PhoneNumber, Title, DateOfBirth) VALUE" +
-                    "(@ID, @First, @Middle, @Last, @Email, @Number,@Title,@Bday)";
-                cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
+                cmd.CommandText = "INSERT INTO employees (FirstName, MiddleInitial," +
+                    "LastName, EmailAddress, PhoneNumber, Title, DateOfBirth) VALUES" +
+                    "( @First, @Middle, @Last, @Email, @Number,@Title,@Bday);";
+               // cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
                 cmd.Parameters.AddWithValue("First", createEmployees.FirstName);
                 cmd.Parameters.AddWithValue("Middle", createEmployees.MiddleInitial);
                 cmd.Parameters.AddWithValue("Last", createEmployees.LastName);
                 cmd.Parameters.AddWithValue("Email", createEmployees.EmailAddress);
+                cmd.Parameters.AddWithValue("Title", createEmployees.Title);
                 cmd.Parameters.AddWithValue("Number", createEmployees.PhoneNumber);
                 cmd.Parameters.AddWithValue("BDay", createEmployees.DateOfBirth);
 
@@ -71,22 +72,23 @@ namespace BestBuyCRUD
         }
 
 
-        public void UpdateEmployees(Employees updateEmployees)
+        public void UpdateEmployees(string fn, string ln, string m)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             using (connect)
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "UPDATE employees SET EmployeeId =@ID, FirstName=@First, LastName=@Last"
-                    + "MiddleInitial=@Middle, EmailAddress=@Email, PhoneNumber=@Number,Title=@title,DateOfBirth=@Bday";
+                cmd.CommandText = "UPDATE employees SET FirstName=@First, MiddleInitial=@Middle,LastName=@Last"
+                    +"Where id=@EmployeeId = ??";
 
-                cmd.Parameters.AddWithValue("ID", updateEmployees.EmployeeId);
-                cmd.Parameters.AddWithValue("First", updateEmployees.FirstName);
-                cmd.Parameters.AddWithValue("Middle", updateEmployees.MiddleInitial);
-                cmd.Parameters.AddWithValue("Email", updateEmployees.EmailAddress);
-                cmd.Parameters.AddWithValue("Phone", updateEmployees.DateOfBirth);
-                cmd.Parameters.AddWithValue("Bday", updateEmployees.DateOfBirth);
+               // cmd.Parameters.AddWithValue("ID", updateEmployees.EmployeeId);
+                cmd.Parameters.AddWithValue("First", fn);
+                cmd.Parameters.AddWithValue("Last", ln);
+                cmd.Parameters.AddWithValue("Middle", m);
+               // cmd.Parameters.AddWithValue("Email", updateEmployees.EmailAddress);
+               // cmd.Parameters.AddWithValue("Phone", updateEmployees.DateOfBirth);
+                //cmd.Parameters.AddWithValue("Bday", updateEmployees.DateOfBirth);
 
                 cmd.ExecuteNonQuery();
             }

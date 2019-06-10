@@ -15,5 +15,21 @@ namespace BestBuyCRUD
         public string Title { get; set; }
         public DateTime DateOfBirth { get; set; }
 
+        public Employees( string fName, string mi,string lName, string email, string number, string title, DateTime bday) // constructor created to create a new employee
+         {
+             FirstName = fName;
+             MiddleInitial = mi;
+             LastName = lName;
+             EmailAddress = email;
+             PhoneNumber = number;
+             Title = title;
+             DateOfBirth = bday;
+         }
+        public Employees()
+        {
+
+        }
+        // contructor 
+
     }
 }
