@@ -80,7 +80,7 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
                 cmd.CommandText = "UPDATE employees SET FirstName=@First, MiddleInitial=@Middle,LastName=@Last"
-                    +"Where id=@EmployeeId = ??";
+                    +"Where id=lastEmployeeId";
 
                // cmd.Parameters.AddWithValue("ID", updateEmployees.EmployeeId);
                 cmd.Parameters.AddWithValue("First", fn);
@@ -101,13 +101,13 @@ namespace BestBuyCRUD
 
             connect.Open();
             MySqlCommand cmd = connect.CreateCommand();
-            cmd.CommandText = "DELECT FROM employees  ??";
+            cmd.CommandText = "DELETE FROM employees Where ID=@EmployeeId between id=lastEmployeeId ;";
             cmd.Parameters.AddWithValue("ID", employeesToDelete.EmployeeId);
-            cmd.Parameters.AddWithValue("First",employeesToDelete.FirstName);
-            cmd.Parameters.AddWithValue("Middle", employeesToDelete.MiddleInitial);
-            cmd.Parameters.AddWithValue("Email", employeesToDelete.EmailAddress);
-            cmd.Parameters.AddWithValue("Phone", employeesToDelete.DateOfBirth);
-            cmd.Parameters.AddWithValue("Bday", employeesToDelete.DateOfBirth);
+           // cmd.Parameters.AddWithValue("First",employeesToDelete.FirstName);
+            //cmd.Parameters.AddWithValue("Middle", employeesToDelete.MiddleInitial);
+            //cmd.Parameters.AddWithValue("Email", employeesToDelete.EmailAddress);
+            //cmd.Parameters.AddWithValue("Phone", employeesToDelete.DateOfBirth);
+            //cmd.Parameters.AddWithValue("Bday", employeesToDelete.DateOfBirth);
 
             cmd.ExecuteNonQuery();
         }

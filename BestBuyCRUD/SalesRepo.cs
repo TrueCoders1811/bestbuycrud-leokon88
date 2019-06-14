@@ -23,7 +23,7 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
                 cmd.CommandText = "SELECT SalesID AS SID, ProductId AS PID, Quantity AS Q,"
-                    + "Price, Date, EmployeeID AS EID";
+                    + "Price, Date, EmployeeID AS EID From Sales;";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -37,6 +37,7 @@ namespace BestBuyCRUD
                     s.Price = (decimal)reader["Price"];
                     s.Date = Convert.ToDateTime(reader["Date"]);
                     s.EmployeeId = (int)reader["EID"];
+                    sales.Add(s);
                 }
                 return sales;
             }
@@ -51,14 +52,14 @@ namespace BestBuyCRUD
                 connect.Open();
 
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "INSERT INTO Sales(SalesID, ProductID, Quantity, Price,Date,EmployeesID)"
-                    + "(@SID,@PID,@Q, @Price, @Date, @EID)";
-                cmd.Parameters.AddWithValue("SID", salesToCreate);
-                cmd.Parameters.AddWithValue("PID", salesToCreate);
-                cmd.Parameters.AddWithValue("Q", salesToCreate);
-                cmd.Parameters.AddWithValue("Price", salesToCreate);
-                cmd.Parameters.AddWithValue("Date", salesToCreate);
-                cmd.Parameters.AddWithValue("EID", salesToCreate);
+                cmd.CommandText = "INSERT INTO Sales( ProductID, Quantity, Price,Date,Employeeid)"
+                    + "Values(@PID,@Q, @Price, @Date, @EID);";
+               // cmd.Parameters.AddWithValue("SID", salesToCreate.SalesId); don't need since it is auto incremented
+                cmd.Parameters.AddWithValue("PID", salesToCreate.ProductId);
+                cmd.Parameters.AddWithValue("Q", salesToCreate.Quantity);
+                cmd.Parameters.AddWithValue("Price", salesToCreate.Price);
+                cmd.Parameters.AddWithValue("Date", salesToCreate.Date);
+                cmd.Parameters.AddWithValue("EID", salesToCreate.EmployeeId);
 
                 cmd.ExecuteNonQuery();
             }
