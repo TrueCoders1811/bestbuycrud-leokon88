@@ -30,13 +30,15 @@ namespace BestBuyCRUD
                 List<Sales> sales = new List<Sales>();
                 while(reader.Read())
                 {
-                    Sales s = new Sales();
-                    s.SalesId = (int)reader["SID"];
-                    s.ProductId = (int)reader["PID"];
-                    s.Quantity = (int)reader["Q"];
-                    s.Price = (decimal)reader["Price"];
-                    s.Date = Convert.ToDateTime(reader["Date"]);
-                    s.EmployeeId = (int)reader["EID"];
+                    Sales s = new Sales
+                    {
+                        SalesId = (int)reader["SID"],
+                        ProductId = (int)reader["PID"],
+                        Quantity = (int)reader["Q"],
+                        Price = (decimal)reader["Price"],
+                        Date = Convert.ToDateTime(reader["Date"]),
+                        EmployeeId = (int)reader["EID"]
+                    };
                     sales.Add(s);
                 }
                 return sales;
@@ -74,9 +76,9 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
 
-                cmd.CommandText = "Update Sales SET SalesId =@SID, ProductId =@PID, Quantity=@Q"
-                    + "Price=@price, Date=@date, EmployeeID=@EID";
-                cmd.Parameters.AddWithValue("SID", salesToUpdate.SalesId);
+                cmd.CommandText = "Update Sales SET  ProductId =@PID, Quantity=@Q"
+                    + "Price=@price, Date=@date  WHERE EmployeeID=@EID;";
+                //cmd.Parameters.AddWithValue("SID", salesToUpdate.SalesId);
                 cmd.Parameters.AddWithValue("PID", salesToUpdate.ProductId);
                 cmd.Parameters.AddWithValue("Q", salesToUpdate.Quantity);
                 cmd.Parameters.AddWithValue("Price", salesToUpdate.Price);
@@ -87,7 +89,7 @@ namespace BestBuyCRUD
             }
         }
 
-        public void DeleteSales( Sales salesToDelete)
+        public void DeleteSales( int eID)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
             using (connect)
@@ -95,18 +97,18 @@ namespace BestBuyCRUD
                 connect.Open();
 
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "DELECT FROM Sales ??";
-                cmd.Parameters.AddWithValue("SID", salesToDelete.SalesId);
-                cmd.Parameters.AddWithValue("PID", salesToDelete.ProductId);
-                cmd.Parameters.AddWithValue("Price", salesToDelete.Price);
-                cmd.Parameters.AddWithValue("Q", salesToDelete.Quantity);
-                cmd.Parameters.AddWithValue("EID", salesToDelete.EmployeeId);
-                cmd.Parameters.AddWithValue("Date", salesToDelete.Date);
+                cmd.CommandText = "DELETe FROM Sales WHere EmployeeID=@EID;";
+                //cmd.Parameters.AddWithValue("SID", salesToDelete.SalesId);
+               // cmd.Parameters.AddWithValue("PID", salesToDelete.ProductId);
+                //cmd.Parameters.AddWithValue("Price", salesToDelete.Price);
+                //cmd.Parameters.AddWithValue("Q", salesToDelete.Quantity);
+                cmd.Parameters.AddWithValue("EID",eID);
+                //cmd.Parameters.AddWithValue("Date", salesToDelete.Date);
 
                 cmd.ExecuteNonQuery();
             }
         }
-
+       
 
     }
 

@@ -7,7 +7,7 @@ namespace BestBuyCRUD
 {
     class EmployeesRepo
     {
-        private string connectionString; // field
+        public string connectionString; // field
 
         public EmployeesRepo(string conn)
         {
@@ -31,15 +31,17 @@ namespace BestBuyCRUD
                 List<Employees> employees = new List<Employees>();
                 while(reader.Read())
                 {
-                    Employees emp = new Employees();
-                    emp.EmployeeId = (int)reader["ID"];
-                    emp.FirstName = reader["First"].ToString();
-                    emp.MiddleInitial = reader["Middle"].ToString();
-                    emp.LastName = reader["Last"].ToString();
-                    emp.EmailAddress = reader["Email"].ToString();
-                    emp.PhoneNumber = reader["Number"].ToString();
-                    emp.Title = reader["Title"].ToString();
-                    emp.DateOfBirth = Convert.ToDateTime(reader["Bday"]);
+                    Employees emp = new Employees
+                    {
+                        EmployeeId = (int)reader["ID"],
+                        FirstName = reader["First"].ToString(),
+                        MiddleInitial = reader["Middle"].ToString(),
+                        LastName = reader["Last"].ToString(),
+                        EmailAddress = reader["Email"].ToString(),
+                        PhoneNumber = reader["Number"].ToString(),
+                        Title = reader["Title"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(reader["Bday"])
+                    };
                     employees.Add(emp);
                 }
                 return employees;
@@ -82,38 +84,38 @@ namespace BestBuyCRUD
                 cmd.CommandText = "UPDATE Employees SET FirstName=@First,LastName=@Last, MiddleInitial=@Middle "
                     + "Where EmployeeId=@ID;";
 
-
-
-                cmd.Parameters.AddWithValue("ID",eId);
-                cmd.Parameters.AddWithValue("First",fn);
+                cmd.Parameters.AddWithValue("ID", eId);
+                cmd.Parameters.AddWithValue("First", fn);
                 cmd.Parameters.AddWithValue("Last", ln);
-                cmd.Parameters.AddWithValue("Middle",m);
-               // cmd.Parameters.AddWithValue("Email", EmailAddress);
-               // cmd.Parameters.AddWithValue("Phone", DateOfBirth);
+                cmd.Parameters.AddWithValue("Middle", m);
+                // cmd.Parameters.AddWithValue("Email", EmailAddress);
+                // cmd.Parameters.AddWithValue("Phone", DateOfBirth);
                 //cmd.Parameters.AddWithValue("Bday", DateOfBirth);
 
                 cmd.ExecuteNonQuery();
-                
-                
-            }
+            } 
+               
         }
 
 
-        public void DeleteEmployees (Employees employeesToDelete)
+        public void DeleteEmployees (int eId)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
+            using (connect)
+            {
+                connect.Open();
+                MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "DELETE FROM Employees Where EmployeeId=@ID ;";
+                cmd.Parameters.AddWithValue("ID", eId);
+                //cmd.Parameters.AddWithValue("ID", eId2);
+                // cmd.Parameters.AddWithValue("First",employeesToDelete.FirstName);
+                //cmd.Parameters.AddWithValue("Middle", employeesToDelete.MiddleInitial);
+                //cmd.Parameters.AddWithValue("Email", employeesToDelete.EmailAddress);
+                //cmd.Parameters.AddWithValue("Phone", employeesToDelete.DateOfBirth);
+                //cmd.Parameters.AddWithValue("Bday", employeesToDelete.DateOfBirth);
 
-            connect.Open();
-            MySqlCommand cmd = connect.CreateCommand();
-            cmd.CommandText = "DELETE FROM employees Where ID=@EmployeeId between id=lastEmployeeId ;";
-            cmd.Parameters.AddWithValue("ID", employeesToDelete.EmployeeId);
-           // cmd.Parameters.AddWithValue("First",employeesToDelete.FirstName);
-            //cmd.Parameters.AddWithValue("Middle", employeesToDelete.MiddleInitial);
-            //cmd.Parameters.AddWithValue("Email", employeesToDelete.EmailAddress);
-            //cmd.Parameters.AddWithValue("Phone", employeesToDelete.DateOfBirth);
-            //cmd.Parameters.AddWithValue("Bday", employeesToDelete.DateOfBirth);
-
-            cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }
