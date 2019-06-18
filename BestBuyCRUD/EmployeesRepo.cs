@@ -118,7 +118,7 @@ namespace BestBuyCRUD
             }
         }
 
-        public void SearchEmployees(string fName, string lName)
+        public List<Employees> SearchEmployees(string fName, string lName)
         {
             MySqlConnection connect = new MySqlConnection(connectionString);
 
@@ -126,18 +126,41 @@ namespace BestBuyCRUD
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "Select * from employees where LastName like'%" + lName + "%' AND FirstName like '%" + fName + "%';";
-              
+                cmd.CommandText = "Select EmployeeId AS ID, FirstName AS First, MiddleInitial AS Middle, LastName AS Last," +
+                    "EmailAddress AS Email, PhoneNumber As Number, Title, DateOfBirth AS Bday FROM Employees WHERE LastName like @Last AND FirstName like @First ;";
+
+
                 // cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
-                cmd.Parameters.AddWithValue("First", fName);
+                cmd.Parameters.AddWithValue("First", "%"+ fName+ "%");
                 //cmd.Parameters.AddWithValue("Middle", createEmployees.MiddleInitial);
-                cmd.Parameters.AddWithValue("Last",lName);
+                cmd.Parameters.AddWithValue("Last", "%"+lName+ "%");
                 //cmd.Parameters.AddWithValue("Email", createEmployees.EmailAddress);
                 //cmd.Parameters.AddWithValue("Title", createEmployees.Title);
                 //cmd.Parameters.AddWithValue("Number", createEmployees.PhoneNumber);
                 //cmd.Parameters.AddWithValue("BDay", createEmployees.DateOfBirth);
 
-                cmd.ExecuteNonQuery();
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                List<Employees> employees = new List<Employees>();
+                while (reader.Read())
+                {
+                    Employees emp = new Employees
+                    {
+                        EmployeeId = (int)reader["ID"],
+                        FirstName = reader["First"].ToString(),
+                        MiddleInitial = reader["Middle"].ToString(),
+                        LastName = reader["Last"].ToString(),
+                        EmailAddress = reader["Email"].ToString(),
+                        PhoneNumber = reader["Number"].ToString(),
+                        Title = reader["Title"].ToString(),
+                        DateOfBirth = Convert.ToDateTime(reader["Bday"])
+                    };
+                    employees.Add(emp);
+                }
+                return employees;
+
+
+                
             }
         }
 

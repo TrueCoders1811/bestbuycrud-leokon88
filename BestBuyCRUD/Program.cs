@@ -23,8 +23,8 @@ namespace BestBuyCRUD
             //while loop to continue ask for user input 
             //Console.Clear()
             bool isTrue = false;
-         
-           
+
+
             //Console.Clear();
             while (!isTrue)
             {
@@ -36,39 +36,20 @@ namespace BestBuyCRUD
                 Console.WriteLine("4) Display an complete employee list");
                 Console.WriteLine("5) Search for an employee");
                 Console.WriteLine("6) Exit");
-                
+
                 int userInput = int.Parse(Console.ReadLine());
 
                 Console.Clear();
                 List<Employees> listOfEmployees = er.GetEmployees();
-               int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
-               int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
+                int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
+                int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
 
                 switch (userInput)
                 {
-                        case 1:
+                    case 1:
                         //Create new employee
-                        /*
-                       Console.WriteLine("Enter First Name: ");
-                       string firstName = Console.ReadLine();
-                       Console.WriteLine("Enter Last Name: ");
-                       string lastName = Console.ReadLine();
-                       Console.WriteLine("Enter Middle Initial: ");
-                       string middleName = Console.ReadLine();
-                       Console.WriteLine("Enter Email Address:");
-                       string email = Console.ReadLine();
-                       Console.WriteLine("Enter Phone number: (000-000-0000)");
-                       string number = Console.ReadLine();
-                       Console.WriteLine("Enter Position Title:");
-                       string title = Console.ReadLine();
-                       Console.WriteLine("Enter Date of Birth: yyyy-mm-dd");
-                       var bDate = Console.ReadLine();
-                       DateTime result;
-                       DateTime.TryParse(bDate, out result);
 
-                     Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, result);// constructor created to create a new employee
-                     */
-                        Employees newEmployee=Employees.EmployeeInfo();
+                        Employees newEmployee = Employees.EmployeeInfo();
 
                         er.CreateEmployees(newEmployee);
                         Console.WriteLine("New employee created.");
@@ -76,7 +57,8 @@ namespace BestBuyCRUD
 
                     case 2:
                         //Update last Employee info
-                        er.UpdateEmployees(lastEmployeeId,"Thomas" , "S", "Lim");
+                        Employees updateEmployee = Employees.EmployeeInfo();
+                        er.UpdateEmployees(lastEmployeeId, updateEmployee.FirstName, updateEmployee.LastName, updateEmployee.MiddleInitial);
                         Console.WriteLine($"Employee {lastEmployeeId} updated.");
                         break;
                     case 3:
@@ -97,25 +79,28 @@ namespace BestBuyCRUD
                     case 5:
                         // search employee info by first and last name
                         Console.WriteLine("Enter an employee's first name");
-                        string searchFName =Console.ReadLine();
+                        string searchFName = Console.ReadLine();
                         Console.WriteLine("Enter an employee's last name");
                         string searchLName = Console.ReadLine();
-                        Employees searchEmployee = new Employees( searchFName,searchLName);
-                        
-                            Console.WriteLine($"ID: {searchEmployee.EmployeeId}   FirstName: {searchEmployee.FirstName}  MiddleInitial: {searchEmployee.MiddleInitial}"
-                                + $"LastName:{searchEmployee.LastName}  Email: {searchEmployee.EmailAddress}   Phone:{searchEmployee.PhoneNumber}  Title: {searchEmployee.Title}  Date of Birth : {searchEmployee.DateOfBirth}");
-                       
+                        List<Employees> searchEmployee = er.SearchEmployees(searchFName, searchLName);
+
+                        foreach (Employees emp in searchEmployee)
+                        {
+                            Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
+                                + $"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}");
+                        }
                         break;
                     case 6:
                         Console.WriteLine("Exiting Menu ");
+                        isTrue = true;
                         break;
                     default:
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
                         break;
                 }
-               // Console.Clear();
+                // Console.Clear();
             }
-            
+
         }
 
 
@@ -124,60 +109,60 @@ namespace BestBuyCRUD
 
 
 
-        // List <Employees> listOfEmployees= er.GetEmployees();
+// List <Employees> listOfEmployees= er.GetEmployees();
 
-        /* foreach(Employees emp in listOfEmployees)
-          {
-              Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
-                  +$"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}"); 
-          }
-           Console.Read();
-         */
-        //  int employeeCount = listOfEmployees.Count-1; // getting last index of employee 
-        // int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId; //retrieving employeeId from last employee in the listOfEmployees list) 
+/* foreach(Employees emp in listOfEmployees)
+  {
+      Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
+          +$"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}"); 
+  }
+   Console.Read();
+ */
+//  int employeeCount = listOfEmployees.Count-1; // getting last index of employee 
+// int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId; //retrieving employeeId from last employee in the listOfEmployees list) 
 
-        //Create new sale
-        //   Sales lastSale = new Sales(2, 3, 1600, new DateTime(2019, 06, 15, 15, 22, 00), lastEmployeeId) ;// constructor created to create new sale for last employee
-        // sr.CreateSales(lastSale); 
+//Create new sale
+//   Sales lastSale = new Sales(2, 3, 1600, new DateTime(2019, 06, 15, 15, 22, 00), lastEmployeeId) ;// constructor created to create new sale for last employee
+// sr.CreateSales(lastSale); 
 
-        /*  List<Sales> sales = sr.GetSales();
-          foreach (Sales trans in sales)
-          {
-              Console.WriteLine($"SalesID: {trans.SalesId}  ProductID: {trans.ProductId}  Quantity: {trans.Quantity} "
-                  + $"Price:{trans.Price}   Date:{trans.Date}  EmployeeId: {trans.EmployeeId} ");
-          }
-          Console.Read();
-          */
+/*  List<Sales> sales = sr.GetSales();
+  foreach (Sales trans in sales)
+  {
+      Console.WriteLine($"SalesID: {trans.SalesId}  ProductID: {trans.ProductId}  Quantity: {trans.Quantity} "
+          + $"Price:{trans.Price}   Date:{trans.Date}  EmployeeId: {trans.EmployeeId} ");
+  }
+  Console.Read();
+  */
 
-        //Update Employee info
-        //   er.UpdateEmployees(lastEmployeeId,"hhh" , "S", "Lim");
-        //  Console.WriteLine("Employee data updated");
+//Update Employee info
+//   er.UpdateEmployees(lastEmployeeId,"hhh" , "S", "Lim");
+//  Console.WriteLine("Employee data updated");
 
-        /*  sr.DeleteSales(lastEmployeeId);
-           er.DeleteEmployees(lastEmployeeId );
-           Console.WriteLine("Employee data deleted");
-           */
-        /*
-         * Intructions:
-         * 1. Start by creating a json file to store your connection string, and making sure it is hidden by git.
-         * 2. Grab your connection string from the json file and into a string in the main method.
-         * 3. Create 4 classes:
-         *    a. Sales - will contain a property for each field / column in the sales table in the bestbuy database.
-         *    b. Employees - will contain a property for each field / column in the employees table in the bestbuy database.
-         *    c. SalesRepo - will contain the 4 CRUD operations for the sales table.
-         *    d. EmployeesRepo - will contain the 4 CRUD operations for the employees table.
-         * 4. The two repo classes will need constructors that take in a connection string.
-         * 5. Back in the Main method, you will have to successfully demonstrate each CRUD operation works:
-         *    a. Create a employee and a sale made by that employee.
-         *    b. Update some information for the created employee.
-         *    c. Read Information from both the sales and employees tables.
-         *    d. Delete the created employee and all the sales they have made.
-         * 
-         * Make sure you are making commits along the way! 
-         * When you are done, push your branch to github and create a pull request. Do not merge!
-         * 
-         * Bonus: Create a method(s) in the EmployeesRepo class that search for employees by their first / last name, or both.
-         */
-    
-    
+/*  sr.DeleteSales(lastEmployeeId);
+   er.DeleteEmployees(lastEmployeeId );
+   Console.WriteLine("Employee data deleted");
+   */
+/*
+ * Intructions:
+ * 1. Start by creating a json file to store your connection string, and making sure it is hidden by git.
+ * 2. Grab your connection string from the json file and into a string in the main method.
+ * 3. Create 4 classes:
+ *    a. Sales - will contain a property for each field / column in the sales table in the bestbuy database.
+ *    b. Employees - will contain a property for each field / column in the employees table in the bestbuy database.
+ *    c. SalesRepo - will contain the 4 CRUD operations for the sales table.
+ *    d. EmployeesRepo - will contain the 4 CRUD operations for the employees table.
+ * 4. The two repo classes will need constructors that take in a connection string.
+ * 5. Back in the Main method, you will have to successfully demonstrate each CRUD operation works:
+ *    a. Create a employee and a sale made by that employee.
+ *    b. Update some information for the created employee.
+ *    c. Read Information from both the sales and employees tables.
+ *    d. Delete the created employee and all the sales they have made.
+ * 
+ * Make sure you are making commits along the way! 
+ * When you are done, push your branch to github and create a pull request. Do not merge!
+ * 
+ * Bonus: Create a method(s) in the EmployeesRepo class that search for employees by their first / last name, or both.
+ */
+
+
 
