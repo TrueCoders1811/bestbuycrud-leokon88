@@ -25,7 +25,7 @@ namespace BestBuyCRUD
             bool isTrue = false;
          
            
-            Console.Clear();
+            //Console.Clear();
             while (!isTrue)
             {
 
@@ -36,11 +36,11 @@ namespace BestBuyCRUD
                 Console.WriteLine("4) Display an complete employee list");
                 Console.WriteLine("5) Search for an employee");
                 Console.WriteLine("6) Exit");
-
+                
                 int userInput = int.Parse(Console.ReadLine());
-              
-            
-               List<Employees> listOfEmployees = er.GetEmployees();
+
+                Console.Clear();
+                List<Employees> listOfEmployees = er.GetEmployees();
                int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
                int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
 
@@ -56,13 +56,16 @@ namespace BestBuyCRUD
                         string middleName = Console.ReadLine();
                         Console.WriteLine("Enter Email Address:");
                         string email = Console.ReadLine();
-                        Console.WriteLine("Enter Phone number:");
+                        Console.WriteLine("Enter Phone number: (000-000-0000)");
                         string number = Console.ReadLine();
                         Console.WriteLine("Enter Position Title:");
                         string title = Console.ReadLine();
-                        DateTime today = DateTime.Now;
-
-                        Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, today);// constructor created to create a new employee
+                        Console.WriteLine("Enter Date of Birth: yyyy-mm-dd");
+                        var bDate = Console.ReadLine();
+                        DateTime result;
+                        DateTime.TryParse(bDate, out result);
+                        
+                        Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, result);// constructor created to create a new employee
                         er.CreateEmployees(newEmployee);
                         Console.WriteLine("New employee created.");
                         break;
@@ -105,9 +108,9 @@ namespace BestBuyCRUD
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
                         break;
                 }
-                
+                Console.Clear();
             }
-            Console.Clear();
+            
         }
 
 
