@@ -25,7 +25,7 @@ namespace BestBuyCRUD
             bool isTrue = false;
          
            
-            //Console.Clear();
+            Console.Clear();
             while (!isTrue)
             {
 
@@ -38,7 +38,7 @@ namespace BestBuyCRUD
                 Console.WriteLine("6) Exit");
 
                 int userInput = int.Parse(Console.ReadLine());
-                Console.Clear();
+              
             
                List<Employees> listOfEmployees = er.GetEmployees();
                int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
@@ -88,10 +88,15 @@ namespace BestBuyCRUD
                         Console.Read();
                         break;
                     case 5:
-                        Console.WriteLine("Enter an employee # to search");
-                        int empSearch =int.Parse(Console.ReadLine());
-                        Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
-                                + $"LastName:{emp.LastName}  Email: {emp.EmailAddress} ");
+                        Console.WriteLine("Enter an employee's first name");
+                        string searchFName =Console.ReadLine();
+                        Console.WriteLine("Enter an employee's last name");
+                        string searchLName = Console.ReadLine();
+                        Employees searchEmployee = new Employees( searchFName,searchLName);
+                        
+                            Console.WriteLine($"ID: {searchEmployee.EmployeeId}   FirstName: {searchEmployee.FirstName}  MiddleInitial: {searchEmployee.MiddleInitial}"
+                                + $"LastName:{searchEmployee.LastName}  Email: {searchEmployee.EmailAddress}   Phone:{searchEmployee.PhoneNumber}  Title: {searchEmployee.Title}  Date of Birth : {searchEmployee.DateOfBirth}");
+                       
                         break;
                     case 6:
                         Console.WriteLine("Exiting Menu ");
@@ -100,8 +105,9 @@ namespace BestBuyCRUD
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
                         break;
                 }
-
+                
             }
+            Console.Clear();
         }
 
 

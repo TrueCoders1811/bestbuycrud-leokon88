@@ -47,6 +47,12 @@ namespace BestBuyCRUD
         {
 
         }
+
+        public Employees(string fName,  string lName)
+        {
+            FirstName = fName;
+            LastName = lName;
+        }
         // contructor 
 
     }

@@ -117,5 +117,29 @@ namespace BestBuyCRUD
                 cmd.ExecuteNonQuery();
             }
         }
+
+        public void SearchEmployees(string fName, string lName)
+        {
+            MySqlConnection connect = new MySqlConnection(connectionString);
+
+            using (connect)
+            {
+                connect.Open();
+                MySqlCommand cmd = connect.CreateCommand();
+                cmd.CommandText = "Select * from employees where LastName like'%" + lName + "%'+ FirstName like '%" + fName + "%';";
+              
+                // cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
+                cmd.Parameters.AddWithValue("First", fName);
+                //cmd.Parameters.AddWithValue("Middle", createEmployees.MiddleInitial);
+                cmd.Parameters.AddWithValue("Last",lName);
+                //cmd.Parameters.AddWithValue("Email", createEmployees.EmailAddress);
+                //cmd.Parameters.AddWithValue("Title", createEmployees.Title);
+                //cmd.Parameters.AddWithValue("Number", createEmployees.PhoneNumber);
+                //cmd.Parameters.AddWithValue("BDay", createEmployees.DateOfBirth);
+
+                cmd.ExecuteNonQuery();
+            }
+        }
+
     }
 }
