@@ -126,7 +126,7 @@ namespace BestBuyCRUD
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "Select * from employees where LastName like'%" + lName + "%'+ FirstName like '%" + fName + "%';";
+                cmd.CommandText = "Select * from employees where LastName like'%" + lName + "%' AND FirstName like '%" + fName + "%';";
               
                 // cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
                 cmd.Parameters.AddWithValue("First", fName);

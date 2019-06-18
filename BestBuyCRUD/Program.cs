@@ -48,24 +48,28 @@ namespace BestBuyCRUD
                 {
                         case 1:
                         //Create new employee
-                        Console.WriteLine("Enter First Name: ");
-                        string firstName = Console.ReadLine();
-                        Console.WriteLine("Enter Last Name: ");
-                        string lastName = Console.ReadLine();
-                        Console.WriteLine("Enter Middle Initial: ");
-                        string middleName = Console.ReadLine();
-                        Console.WriteLine("Enter Email Address:");
-                        string email = Console.ReadLine();
-                        Console.WriteLine("Enter Phone number: (000-000-0000)");
-                        string number = Console.ReadLine();
-                        Console.WriteLine("Enter Position Title:");
-                        string title = Console.ReadLine();
-                        Console.WriteLine("Enter Date of Birth: yyyy-mm-dd");
-                        var bDate = Console.ReadLine();
-                        DateTime result;
-                        DateTime.TryParse(bDate, out result);
-                        
-                        Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, result);// constructor created to create a new employee
+                        /*
+                       Console.WriteLine("Enter First Name: ");
+                       string firstName = Console.ReadLine();
+                       Console.WriteLine("Enter Last Name: ");
+                       string lastName = Console.ReadLine();
+                       Console.WriteLine("Enter Middle Initial: ");
+                       string middleName = Console.ReadLine();
+                       Console.WriteLine("Enter Email Address:");
+                       string email = Console.ReadLine();
+                       Console.WriteLine("Enter Phone number: (000-000-0000)");
+                       string number = Console.ReadLine();
+                       Console.WriteLine("Enter Position Title:");
+                       string title = Console.ReadLine();
+                       Console.WriteLine("Enter Date of Birth: yyyy-mm-dd");
+                       var bDate = Console.ReadLine();
+                       DateTime result;
+                       DateTime.TryParse(bDate, out result);
+
+                     Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, result);// constructor created to create a new employee
+                     */
+                        Employees newEmployee=Employees.EmployeeInfo();
+
                         er.CreateEmployees(newEmployee);
                         Console.WriteLine("New employee created.");
                         break;
@@ -88,9 +92,10 @@ namespace BestBuyCRUD
                             Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
                                 + $"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}");
                         }
-                        Console.Read();
+                        //Console.Read();
                         break;
                     case 5:
+                        // search employee info by first and last name
                         Console.WriteLine("Enter an employee's first name");
                         string searchFName =Console.ReadLine();
                         Console.WriteLine("Enter an employee's last name");
@@ -108,7 +113,7 @@ namespace BestBuyCRUD
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
                         break;
                 }
-                Console.Clear();
+               // Console.Clear();
             }
             
         }
