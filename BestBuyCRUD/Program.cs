@@ -8,6 +8,28 @@ namespace BestBuyCRUD
 {
     class Program
     {
+        public static int GetIntValue(string question)
+        {
+
+            while (true)
+            {
+                int result;
+                Console.WriteLine(question);
+                string input = Console.ReadLine();
+                bool isNumber = int.TryParse(input, out result);
+
+                if (isNumber)
+                {
+                    return result;
+                }
+                Console.Clear();
+                Console.WriteLine("Not a number! Type a number");
+            }
+
+        }
+
+
+
         static void Main(string[] args)
         {
             string jsonData = File.ReadAllText("AppSetting.Debug.json");
@@ -29,28 +51,26 @@ namespace BestBuyCRUD
             while (!isTrue)
             {
 
-                Console.WriteLine("Select from the Menu:");
-                Console.WriteLine("1) Create a new employee");
-                Console.WriteLine("2) Update last employee");
-                Console.WriteLine("3) Delete last  employee");
-                Console.WriteLine("4) Display an complete employee list");
-                Console.WriteLine("5) Search for an employee");
-                Console.WriteLine("6) Exit");
-
-                int userInput = int.Parse(Console.ReadLine());
-
-                Console.Clear();
                 List<Employees> listOfEmployees = er.GetEmployees();
                 int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
                 int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
 
+                int userInput = GetIntValue("Select from the Menu:" +
+                    "\n 1) Create a new employee" +
+                    "\n 2) Update last employee" +
+                    "\n 3) Delete last  employee" +
+                    "\n 4) Display an complete employee list" +
+                    "\n 5) Search for an employee" +
+                    $"\n 6) Create a sales for an employee {lastEmployeeId}" +
+                    "\n 7) Exit");
+
+                Console.Clear();
                 switch (userInput)
                 {
                     case 1:
                         //Create new employee
 
                         Employees newEmployee = Employees.EmployeeInfo();
-
                         er.CreateEmployees(newEmployee);
                         Console.WriteLine("New employee created.");
                         break;
@@ -91,14 +111,23 @@ namespace BestBuyCRUD
                         }
                         break;
                     case 6:
+                        //Create new sale
+                        Sales newSale = Sales.SalesInfo( lastEmployeeId);
+                        sr.CreateSales(newSale.ProductId, newSale.Quantity, newSale.Price,newSale.Date, newSale.EmployeeId);
+                        Console.WriteLine("New sale created.");
+                        break;
+
+
+                    case 7:
                         Console.WriteLine("Exiting Menu ");
+
                         isTrue = true;
                         break;
                     default:
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
                         break;
                 }
-                // Console.Clear();
+
             }
 
         }
@@ -109,39 +138,6 @@ namespace BestBuyCRUD
 
 
 
-// List <Employees> listOfEmployees= er.GetEmployees();
-
-/* foreach(Employees emp in listOfEmployees)
-  {
-      Console.WriteLine($"ID: {emp.EmployeeId}   FirstName: {emp.FirstName}  MiddleInitial: {emp.MiddleInitial}"
-          +$"LastName:{emp.LastName}  Email: {emp.EmailAddress}   Phone:{emp.PhoneNumber}  Title: {emp.Title}  Date of Birth : {emp.DateOfBirth}"); 
-  }
-   Console.Read();
- */
-//  int employeeCount = listOfEmployees.Count-1; // getting last index of employee 
-// int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId; //retrieving employeeId from last employee in the listOfEmployees list) 
-
-//Create new sale
-//   Sales lastSale = new Sales(2, 3, 1600, new DateTime(2019, 06, 15, 15, 22, 00), lastEmployeeId) ;// constructor created to create new sale for last employee
-// sr.CreateSales(lastSale); 
-
-/*  List<Sales> sales = sr.GetSales();
-  foreach (Sales trans in sales)
-  {
-      Console.WriteLine($"SalesID: {trans.SalesId}  ProductID: {trans.ProductId}  Quantity: {trans.Quantity} "
-          + $"Price:{trans.Price}   Date:{trans.Date}  EmployeeId: {trans.EmployeeId} ");
-  }
-  Console.Read();
-  */
-
-//Update Employee info
-//   er.UpdateEmployees(lastEmployeeId,"hhh" , "S", "Lim");
-//  Console.WriteLine("Employee data updated");
-
-/*  sr.DeleteSales(lastEmployeeId);
-   er.DeleteEmployees(lastEmployeeId );
-   Console.WriteLine("Employee data deleted");
-   */
 /*
  * Intructions:
  * 1. Start by creating a json file to store your connection string, and making sure it is hidden by git.
