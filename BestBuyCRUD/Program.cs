@@ -83,7 +83,6 @@ namespace BestBuyCRUD
                         break;
                     case 3:
                         //Delete last Employee info
-                        Console.WriteLine($"Are you sure you want to delete Employee# {lastEmployeeId} ?");
                         er.DeleteEmployees(lastEmployeeId);
                         Console.WriteLine($"Employee# {lastEmployeeId} deleted");
                         break;
@@ -112,8 +111,8 @@ namespace BestBuyCRUD
                         break;
                     case 6:
                         //Create new sale
-                        Sales newSale = Sales.SalesInfo( lastEmployeeId);
-                        sr.CreateSales(newSale.ProductId, newSale.Quantity, newSale.Price,newSale.Date, newSale.EmployeeId);
+                        Sales newSale = Sales.SalesInfo(lastEmployeeId);
+                        sr.CreateSales(newSale.ProductId, newSale.Quantity, newSale.Price, newSale.Date, newSale.EmployeeId);
                         Console.WriteLine("New sale created.");
                         break;
 
