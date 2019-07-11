@@ -51,18 +51,18 @@ namespace BestBuyCRUD
             while (!isTrue)
             {
 
-                List<Employees> listOfEmployees = er.GetEmployees();
-                int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
-                int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
-
                 int userInput = GetIntValue("Select from the Menu:" +
                     "\n 1) Create a new employee" +
                     "\n 2) Update last employee" +
                     "\n 3) Delete last  employee" +
                     "\n 4) Display an complete employee list" +
                     "\n 5) Search for an employee" +
-                    $"\n 6) Create a sales for an employee {lastEmployeeId}" +
+                    $"\n 6) Create a sales for an employee" +
                     "\n 7) Exit");
+
+                List<Employees> listOfEmployees = er.GetEmployees();
+                int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
+                int lastEmployeeId = listOfEmployees[employeeCount].EmployeeId;// retrieving employeeId from last employee in the listOfEmployees list)
 
                 Console.Clear();
                 switch (userInput)

@@ -131,9 +131,9 @@ namespace BestBuyCRUD
 
 
                 // cmd.Parameters.AddWithValue("ID", createEmployees.EmployeeId);
-                cmd.Parameters.AddWithValue("First", "%"+ fName+ "%");
+                cmd.Parameters.AddWithValue("First", fName+ "%");
                 //cmd.Parameters.AddWithValue("Middle", createEmployees.MiddleInitial);
-                cmd.Parameters.AddWithValue("Last", "%"+lName+ "%");
+                cmd.Parameters.AddWithValue("Last", lName+ "%");
                 //cmd.Parameters.AddWithValue("Email", createEmployees.EmailAddress);
                 //cmd.Parameters.AddWithValue("Title", createEmployees.Title);
                 //cmd.Parameters.AddWithValue("Number", createEmployees.PhoneNumber);
