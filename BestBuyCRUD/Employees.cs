@@ -4,7 +4,7 @@ using System.Text;
 
 namespace BestBuyCRUD
 {
-    class Employees
+    class Employee
     {
         public int EmployeeId { get; set; }
         public string FirstName { get; set; }
@@ -16,7 +16,7 @@ namespace BestBuyCRUD
         public DateTime DateOfBirth { get; set; }
 
 
-        public static Employees EmployeeInfo()
+        public static Employee EmployeeInfo()
         {
             Console.WriteLine("Enter First Name: ");
             string firstName = Console.ReadLine();
@@ -35,31 +35,28 @@ namespace BestBuyCRUD
             DateTime result;
             DateTime.TryParse(bDate, out result);
 
-            Employees newEmployee = new Employees(firstName, middleName, lastName, email, number, title, result);
+            Employee newEmployee = new Employee(firstName, middleName, lastName, email, number, title, result);
             return newEmployee;
         }
 
-        public Employees( string fName, string mi,string lName, string email, string number, string title, DateTime bday) // constructor created to create a new employee
-           {
-               FirstName = fName;
-               MiddleInitial = mi;
-               LastName = lName;
-               EmailAddress = email;
-               PhoneNumber = number;
-               Title = title;
-               DateOfBirth = bday;
-           }
-        public Employees()
+        public Employee(string fName, string mi, string lName, string email, string number, string title, DateTime bday) // constructor created to create a new employee
         {
-
+            FirstName = fName;
+            MiddleInitial = mi;
+            LastName = lName;
+            EmailAddress = email;
+            PhoneNumber = number;
+            Title = title;
+            DateOfBirth = bday;
+        }
+        public Employee()
+        {
         }
 
-        public Employees(string fName,  string lName)
+        public Employee(string fName, string lName)
         {
             FirstName = fName;
             LastName = lName;
         }
-        // contructor 
-
     }
 }
