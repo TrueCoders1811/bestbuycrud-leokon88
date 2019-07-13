@@ -6,42 +6,41 @@ namespace BestBuyCRUD
 {
     class Sales
     {
-        public int SalesId { get; set; } // property
+        public int SalesId { get; set; }
         public int ProductId { get; set; }
         public int Quantity { get; set; }
         public decimal Price { get; set; }
         public DateTime Date { get; set; }
         public int EmployeeId { get; set; }
 
-        public static Sales SalesInfo(int eID)
+        public static Sales SalesInfo(int employeeID)
         {
-            int pID = Program.GetIntValue("Enter Product ID: ");
-            int q = Program.GetIntValue("Enter Quantity sold: ");
+            int productID = Program.GetIntValue("Enter Product ID: ");
+            int quantity = Program.GetIntValue("Enter Quantity sold: ");
             Console.WriteLine("Enter Price: ");
             string priceInput = Console.ReadLine();
             decimal price;
             decimal.TryParse(priceInput, out price);
-          
+
             Console.WriteLine("Enter Date of Sales: yyyy-mm-dd");
             var dateInput = Console.ReadLine();
-            DateTime sDate;
-            DateTime.TryParse(dateInput, out sDate);
+            DateTime salesDate;
+            DateTime.TryParse(dateInput, out salesDate);
 
-            Sales newSale = new Sales(pID, q, price, sDate, eID);
+            Sales newSale = new Sales(productID, quantity, price, salesDate, employeeID);
             return newSale;
         }
 
-        public Sales(int pid, int q, decimal p, DateTime date, int eid)
+        public Sales(int productID, int quantity, decimal price, DateTime date, int employeeID)
         {
-            ProductId = pid;
-            Quantity = q;
-            Price = p;
+            ProductId = productID;
+            Quantity = quantity;
+            Price = price;
             Date = date;
-            EmployeeId = eid;
+            EmployeeId = employeeID;
         }
         public Sales()
         {
-
         }
     }
 }

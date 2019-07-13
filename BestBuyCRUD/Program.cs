@@ -35,9 +35,9 @@ namespace BestBuyCRUD
             EmployeesRepo er = new EmployeesRepo(connString);
             SalesRepo sr = new SalesRepo(connString);
 
-            bool isTrue = false;
+            bool shouldEexit = false;
 
-            while (!isTrue)
+            while (!shouldEexit)
             {
                 List<Employee> listOfEmployees = er.GetEmployees();
                 int employeeCount = listOfEmployees.Count - 1; // getting last index of employee 
@@ -79,9 +79,9 @@ namespace BestBuyCRUD
                         }
                         break;
                     case 5:   // search employee info by first and last name
-                        Console.WriteLine("Enter an employee's first name");
+                        Console.WriteLine("Enter the employee's first name");
                         string searchFName = Console.ReadLine();
-                        Console.WriteLine("Enter an employee's last name");
+                        Console.WriteLine("Enter the employee's last name");
                         string searchLName = Console.ReadLine();
                         List<Employee> searchEmployee = er.SearchEmployees(searchFName, searchLName);
 
@@ -94,11 +94,11 @@ namespace BestBuyCRUD
                     case 6://Create new sale for last employee created
                         Sales newSale = Sales.SalesInfo(lastEmployeeId);
                         sr.CreateSales(newSale.ProductId, newSale.Quantity, newSale.Price, newSale.Date, newSale.EmployeeId);
-                        Console.WriteLine("New sale created.");
+                        Console.WriteLine("New sales created.");
                         break;
                     case 7: // Exit menu
                         Console.WriteLine("Exiting Menu ");
-                        isTrue = true;
+                        shouldEexit = true;
                         break;
                     default:
                         Console.WriteLine("Invalid option. Enter 1 through 6.");
