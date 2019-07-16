@@ -22,7 +22,7 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
                 cmd.CommandText = "SELECT SalesID AS SID, ProductId AS PID, Quantity AS Q,"
-                    + "Price, Date, EmployeeID AS EID From Sales;";
+                    + "Price, Date, EmployeeID AS EID FROM Sales;";
 
                 MySqlDataReader reader = cmd.ExecuteReader();
 
@@ -52,7 +52,7 @@ namespace BestBuyCRUD
             {
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
-                cmd.CommandText = "INSERT INTO Sales( ProductID, Quantity, Price,Date,Employeeid)"
+                cmd.CommandText = "INSERT INTO Sales( ProductID, Quantity, Price, Date, Employeeid)"
                     + "VALUES(@PID,@Q, @Price, @Date, @EID);";
                 cmd.Parameters.AddWithValue("PID", productID);
                 cmd.Parameters.AddWithValue("Q", quantity);
@@ -71,7 +71,7 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
 
-                cmd.CommandText = "UPDATE Sales SET  ProductId =@PID, Quantity=@Q, Price=@price, Date=@date  WHERE EmployeeID=@EID;";
+                cmd.CommandText = "UPDATE Sales SET  ProductId =@PID, Quantity=@Q, Price=@price, Date=@date WHERE EmployeeID=@EID;";
                 cmd.Parameters.AddWithValue("PID", salesToUpdate.ProductId);
                 cmd.Parameters.AddWithValue("Q", salesToUpdate.Quantity);
                 cmd.Parameters.AddWithValue("Price", salesToUpdate.Price);

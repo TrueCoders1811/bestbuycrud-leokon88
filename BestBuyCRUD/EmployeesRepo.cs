@@ -109,7 +109,7 @@ namespace BestBuyCRUD
                 connect.Open();
                 MySqlCommand cmd = connect.CreateCommand();
                 cmd.CommandText = "SELECT EmployeeId AS ID, FirstName AS First, MiddleInitial AS Middle, LastName AS Last," +
-                    "EmailAddress AS Email, PhoneNumber As Number, Title, DateOfBirth AS Bday FROM Employees WHERE LastName LIKE @Last AND FirstName like @First ;";
+                    "EmailAddress AS Email, PhoneNumber AS Number, Title, DateOfBirth AS Bday FROM Employees WHERE LastName LIKE @Last AND FirstName like @First ;";
                 cmd.Parameters.AddWithValue("First", "%" + firstName + "%");
                 cmd.Parameters.AddWithValue("Last", "%" + lastName + "%");
 
